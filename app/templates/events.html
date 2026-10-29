@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% macro card(e, show_register) %}
+<article class="event">
+  {% if e.image %}<a class="flyer" href="{{ url_for('static', path=e.image) }}" target="_blank" rel="noopener"
+     title="Open the full flyer"><img src="{{ url_for('static', path=e.image) }}" alt="{{ e.image_alt or e.title }}"
+     loading="lazy"></a>{% endif %}
+  <div class="event-body">
+    <h3>{{ e.title }}</h3>
+    <p class="when">{{ e|date_range }}{% if e.time_label %} &middot; {{ e.time_label }}{% endif %}{% if e.location %} &middot; {{ e.location }}{% endif %}</p>
+    <p>{{ e.description }}</p>
+    {% if e.link_url %}<p><a href="{{ e.link_url }}" rel="noopener">Details and registration</a></p>
+    {% elif show_register %}<p><a class="btn btn-gold" href="/contact?topic=Something%20else">Register your interest</a></p>{% endif %}
+  </div>
+</article>
+{% endmacro %}
+{% block content %}
+<section class="wrap block"><h1>Events</h1>
+  <h2>Upcoming</h2>
+  {% for e in upcoming %}{{ card(e, true) }}
+  {% else %}<p>No events are scheduled right now. <a href="#newsletter">Join the list</a> to hear first, or
+    <a href="/contact?topic=Speaking">invite Chinasa to speak</a>.</p>{% endfor %}
+  {% if past %}<h2>Past events</h2>
+  <p>A record of recent trainings, launches and speaking engagements.</p>
+  {% for e in past %}{{ card(e, false) }}{% endfor %}{% endif %}
+</section>
+{% endblock %}

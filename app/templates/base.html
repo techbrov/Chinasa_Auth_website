@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}{% if title != site_name and '|' not in title %} | {{ site_name }}{% endif %}</title>
+  <meta name="description" content="{{ description }}">
+  <link rel="canonical" href="{{ site_url }}{{ request.url.path }}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site_url }}{{ request.url.path }}">
+  <meta property="og:image" content="{{ site_url }}{{ url_for('static', path='img/author-photo.jpg').path }}">
+  <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
+  {% block jsonld %}{% endblock %}
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="brand" href="/">{{ site_name }}</a>
+      <nav aria-label="Main">
+        <a href="/about">About</a>
+        <a href="/services">Services</a>
+        <a href="/books">Books</a>
+        <a href="/speaking">Speaking</a>
+        <a href="/events">Events</a>
+        <a href="/reviews">Reviews</a>
+        <a class="btn btn-gold" href="/contact">Enquire</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">{% block content %}{% endblock %}</main>
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <section id="newsletter" aria-labelledby="nl">
+        <h2 id="nl">Join the list</h2>
+        <p>Writing and publishing notes, plus news of new books and events.</p>
+        <form method="post" action="/subscribe" class="stack">
+          <label for="nl-email">Email address</label>
+          <input id="nl-email" name="email" type="email" required autocomplete="email">
+          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label class="check"><input type="checkbox" name="consent" value="yes" required>
+            I agree to receive emails. See the <a href="/privacy">privacy policy</a>.</label>
+          <button class="btn btn-gold" type="submit">Subscribe</button>
+        </form>
+      </section>
+      <section>
+        <h2>Explore</h2>
+        <p><a href="/press-kit">Press kit</a><br><a href="/books">Reading order</a><br>
+        <a href="/contact">Contact</a><br><a href="/privacy">Privacy policy</a></p>
+      </section>
+    </div>
+    <p class="wrap copy">&copy; {{ year }} {{ site_name }}. All rights reserved.</p>
+  </footer>
+</body>
+</html>

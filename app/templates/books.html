@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="wrap block"><h1>Books</h1>
+  <h2>Reading order</h2>
+  <p>New to Chinasa's writing? Read in this order.</p>
+  <ol class="order">
+    {% for b in own %}
+    <li><a class="book" href="/books/{{ b.slug }}">
+      <img src="{{ url_for('static', path=b.cover_image) }}" alt="Cover of {{ b.title }}" loading="lazy">
+      <span><strong>{{ loop.index }}. {{ b.title }}</strong><br>{{ b.subtitle }}</span></a></li>
+    {% else %}<li>Books coming soon.</li>{% endfor %}
+  </ol>
+  {% if edited %}
+  <h2>Books Chinasa has edited</h2>
+  <div class="books">{% for b in edited %}
+    <figure class="book"><img src="{{ url_for('static', path=b.cover_image) }}" alt="Cover of {{ b.title }}" loading="lazy">
+      <figcaption>{{ b.title }}<br><small>by {{ b.author_name }}</small></figcaption></figure>{% endfor %}
+  </div>{% endif %}
+</section>
+{% endblock %}

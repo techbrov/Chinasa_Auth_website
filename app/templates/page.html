@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="wrap prose block">
+  {% if photo %}<img class="about-photo" src="{{ url_for('static', path=photo) }}"
+       alt="Portrait of Chinasa Elukposi" width="320" height="368">{% endif %}
+  <h1>{{ page.title }}</h1>
+  {{ page.body_html|safe }}
+  {% if cta_topic %}<p><a class="btn btn-gold" href="/contact?topic={{ cta_topic }}">Send a {{ cta_topic|lower }} request</a></p>{% endif %}
+  {% if certs %}
+  <h2 id="credentials">Credentials</h2>
+  <ul class="plain">{% for c in certs %}
+    <li><strong>{{ c.title }}</strong><br>{{ c.issuer }}, {{ c.date_label }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+</article>
+{% endblock %}

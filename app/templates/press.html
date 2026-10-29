@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="wrap prose block">
+  <h1>{{ page.title }}</h1>
+  {{ page.body_html|safe }}
+  <h2>Downloads</h2>
+  <ul>
+    <li><a href="{{ url_for('static', path='img/author-photo.jpg') }}" download>Author photo (JPG)</a></li>
+    {% for b in books %}<li><a href="{{ url_for('static', path=b.cover_image) }}" download>{{ b.title }} cover (JPG)</a></li>{% endfor %}
+  </ul>
+</article>
+{% endblock %}

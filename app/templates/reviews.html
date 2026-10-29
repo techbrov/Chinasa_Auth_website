@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="wrap block"><h1>Client reviews</h1>
+  <div class="reviews">
+  {% for r in reviews %}
+    <article class="review">
+      {% if r.image %}<img src="{{ url_for('static', path=r.image) }}" alt="{{ r.image_alt or 'Client review' }}" loading="lazy">{% endif %}
+      <blockquote><p>{{ r.quote }}</p><footer>{{ r.client_name }}{% if r.client_detail %}, {{ r.client_detail }}{% endif %}</footer></blockquote>
+    </article>
+  {% else %}<p>Reviews are being added. <a href="/contact">Get in touch</a> to talk about your book.</p>{% endfor %}
+  </div>
+</section>
+{% endblock %}

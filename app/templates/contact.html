@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="wrap prose block"><h1>Contact</h1>
+  <p>Tell me about your book or event. Please do not paste a full manuscript here: describe it, and we will agree a safe way to share files.</p>
+  {% if errors %}<div class="errors" role="alert"><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+  <form method="post" action="/contact" class="stack">
+    <label for="name">Your name</label>
+    <input id="name" name="name" required value="{{ form.get('name','') }}" autocomplete="name">
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" required value="{{ form.get('email','') }}" autocomplete="email">
+    <label for="topic">Topic</label>
+    <select id="topic" name="topic" required>
+      <option value="">Choose one</option>
+      {% for t in topics %}<option value="{{ t }}" {% if form.get('topic') == t %}selected{% endif %}>{{ t }}</option>{% endfor %}
+    </select>
+    <label for="message">Message</label>
+    <textarea id="message" name="message" rows="6" required>{{ form.get('message','') }}</textarea>
+    <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <label class="check"><input type="checkbox" name="consent" value="yes" required>
+      I agree that my details may be stored so Chinasa can reply. See the <a href="/privacy">privacy policy</a>.</label>
+    <button class="btn btn-gold" type="submit">Send enquiry</button>
+  </form>
+</section>
+{% endblock %}

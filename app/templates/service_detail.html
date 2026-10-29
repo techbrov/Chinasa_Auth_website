@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="wrap prose block">
+  <p><a href="/services">&larr; All services</a></p>
+  <h1>{{ service.title }}</h1>
+  <p class="lead">{{ service.summary }}</p>
+  {{ service.details_html|safe }}
+  {% if service.price_note %}<p class="note">{{ service.price_note }}</p>{% endif %}
+  <p><a class="btn btn-gold" href="/contact?topic={{ service.title|urlencode }}">Enquire about this service</a></p>
+</article>
+{% endblock %}

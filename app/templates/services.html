@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="wrap block"><h1>Services</h1>
+  <figure class="banner">
+    <img src="{{ url_for('static', path='img/services-flyer.jpg') }}"
+         alt="Services offered by The Seasoned Book Editor: book writing and ghostwriting, cover design and formatting, digital publishing and ISBN registration, coaching and consultation, and manuscript evaluation."
+         loading="lazy">
+  </figure>
+  <div class="cards">{% for s in services %}
+    <article class="card"><h2><a href="/services/{{ s.slug }}">{{ s.title }}</a></h2><p>{{ s.summary }}</p></article>{% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block jsonld %}
+<script type="application/ld+json">{{ {"@context":"https://schema.org","@type":"Person","name":"Chinasa Elukposi","jobTitle":"Book editor, ghostwriter and writing coach","url":site_url}|tojson }}</script>
+{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Book editor &middot; Ghostwriter &middot; Author &middot; Writing coach</p>
+      <h1>Turning raw manuscripts into global books</h1>
+      <p class="lead">Chinasa Elukposi helps writers go beyond a finished manuscript to clarity, structure and lasting impact.</p>
+      <p><a class="btn btn-gold" href="/contact?topic=Book%20editing">Start your book project</a>
+         <a class="btn btn-light" href="/contact?topic=Speaking">Invite her to speak</a></p>
+    </div>
+    <img class="portrait" src="{{ url_for('static', path='img/author-photo.jpg') }}"
+         alt="Chinasa Elukposi, The Seasoned Book Editor" width="420" height="483">
+  </div>
+</section>
+
+{% if next_event %}
+<section class="wrap block" aria-labelledby="next-event">
+  <h2 id="next-event">Next event</h2>
+  <article class="event">
+    {% if next_event.image %}<a class="flyer" href="/events"><img src="{{ url_for('static', path=next_event.image) }}"
+       alt="{{ next_event.image_alt or next_event.title }}" loading="lazy"></a>{% endif %}
+    <div class="event-body">
+      <h3>{{ next_event.title }}</h3>
+      <p class="when">{{ next_event|date_range }}{% if next_event.time_label %} &middot; {{ next_event.time_label }}{% endif %}{% if next_event.location %} &middot; {{ next_event.location }}{% endif %}</p>
+      <p>{{ next_event.description }}</p>
+      <p><a class="btn btn-gold" href="/events">See event details</a></p>
+    </div>
+  </article>
+</section>
+{% endif %}
+
+{% if cert_count %}<p class="strip wrap">{{ cert_count }} professional certifications in editing, ghostwriting and writing &middot;
+  <a href="/about#credentials">see credentials</a></p>{% endif %}
+
+<section class="wrap block">
+  <h2>How I can help</h2>
+  <div class="cards">
+    {% for s in services %}
+    <article class="card"><h3><a href="/services/{{ s.slug }}">{{ s.title }}</a></h3><p>{{ s.summary }}</p></article>
+    {% endfor %}
+  </div>
+  <p><a href="/services">All services &rarr;</a></p>
+</section>
+
+{% if books %}
+<section class="wrap block">
+  <h2>Books by Chinasa</h2>
+  <div class="books">
+    {% for b in books %}
+    <a class="book" href="/books/{{ b.slug }}">
+      <img src="{{ url_for('static', path=b.cover_image) }}" alt="Cover of {{ b.title }}" loading="lazy">
+      <span>{{ b.title }}</span></a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if reviews %}
+<section class="wrap block"><h2>What authors say</h2>
+  {% for r in reviews %}<blockquote><p>{{ r.quote }}</p><footer>{{ r.client_name }}{% if r.client_detail %}, {{ r.client_detail }}{% endif %}</footer></blockquote>{% endfor %}
+</section>
+{% endif %}
+{% endblock %}

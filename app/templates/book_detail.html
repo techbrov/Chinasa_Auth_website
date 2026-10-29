@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block jsonld %}
+<script type="application/ld+json">{{ {"@context":"https://schema.org","@type":"Book","name":book.title,"author":{"@type":"Person","name":book.author_name}}|tojson }}</script>
+{% endblock %}
+{% block content %}
+<article class="wrap block detail">
+  <img src="{{ url_for('static', path=book.cover_image) }}" alt="Cover of {{ book.title }}" width="320">
+  <div class="prose">
+    <p><a href="/books">&larr; All books</a></p>
+    <h1>{{ book.title }}</h1>
+    {% if book.subtitle %}<p class="lead">{{ book.subtitle }}</p>{% endif %}
+    <p>{{ book.blurb }}</p>
+    {% if book.buy_url %}<p><a class="btn btn-gold" href="{{ book.buy_url }}" rel="noopener">Buy this book</a></p>
+    {% else %}<p class="note">Purchase link coming soon. <a href="/contact">Ask about copies</a>.</p>{% endif %}
+    {% if book.excerpt_html %}<h2>Read an excerpt</h2>{{ book.excerpt_html|safe }}{% endif %}
+  </div>
+</article>
+{% endblock %}
